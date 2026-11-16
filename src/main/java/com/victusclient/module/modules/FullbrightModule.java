@@ -7,7 +7,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 
 public class FullbrightModule extends Module {
-    public FullbrightModule() { super("Fullbright", Category.RENDER); }
+    public FullbrightModule() { super("Brightness", Category.VISUAL); }
 
     @Override public void onTick(MinecraftClient mc) {
         if (mc.player == null) return;

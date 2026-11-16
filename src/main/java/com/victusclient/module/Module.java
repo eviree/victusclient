@@ -9,8 +9,11 @@ import java.util.List;
 public abstract class Module {
     public final String name;
     public final Category category;
+    public String description = "";
     public boolean enabled;
     public boolean favorite;
+    public boolean soon;                 // roadmap entry, not implemented yet
+    public float uiToggle, uiHover;      // menu animation state
     public final List<Setting> settings = new ArrayList<>();
 
     protected Module(String name, Category category) {
@@ -23,7 +26,7 @@ public abstract class Module {
     public void toggle() { setEnabled(!enabled); }
 
     public void setEnabled(boolean e) {
-        if (enabled == e) return;
+        if (soon || enabled == e) return;
         enabled = e;
         if (e) onEnable(); else onDisable();
     }

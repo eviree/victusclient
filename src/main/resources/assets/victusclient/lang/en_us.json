@@ -1,5 +1,8 @@
 {
   "key.victusclient.menu": "Open Victus Menu",
+  "key.victusclient.zoom": "Zoom",
   "category.victusclient": "Victus Client",
-  "key.category.victusclient.main": "Victus Client"
+  "key.category.victusclient.main": "Victus Client",
+  "key.victusclient.stopwatch": "Stopwatch: Start / Pause",
+  "key.victusclient.stopwatch_reset": "Stopwatch: Reset"
 }

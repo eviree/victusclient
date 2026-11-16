@@ -18,6 +18,7 @@ base { archivesName = "victusclient-${target}" }
 
 // version-specific code (input API, HUD API, keybind category)
 sourceSets.main.java.srcDir "src/compat/${tp.getProperty('variant')}/java"
+sourceSets.main.java.srcDir "src/compat/tex_${tp.getProperty('tex')}/java"
 
 dependencies {
     minecraft "com.mojang:minecraft:${tp.getProperty('minecraft_version')}"

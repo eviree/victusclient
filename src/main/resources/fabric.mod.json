@@ -3,10 +3,12 @@
   "id": "victusclient",
   "version": "${version}",
   "name": "Victus Client",
-  "description": "Victus Client in-game mod menu: HUD, render and movement mods.",
+  "description": "Victus Client - more than just a client. Mod menu, HUD, PvP tools and more.",
   "authors": ["Victus"],
+  "icon": "assets/victusclient/icon.png",
   "environment": "client",
   "entrypoints": { "client": ["com.victusclient.VictusClient"] },
+  "mixins": ["victusclient.mixins.json"],
   "depends": {
     "fabricloader": ">=0.16.0",
     "minecraft": "${mc_depends}",
