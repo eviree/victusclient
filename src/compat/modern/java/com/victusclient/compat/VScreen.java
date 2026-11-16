@@ -16,9 +16,44 @@ public abstract class VScreen extends Screen {
     protected boolean onKey(int key) { return false; }
     protected boolean onChar(int codepoint) { return false; }
 
-    @Override public boolean mouseClicked(Click c, boolean doubled) { return onClick(c.x(), c.y(), c.button()) || super.mouseClicked(c, doubled); }
-    @Override public boolean mouseDragged(Click c, double dx, double dy) { return onDrag(c.x(), c.y(), c.button()) || super.mouseDragged(c, dx, dy); }
-    @Override public boolean mouseReleased(Click c) { return onRelease(c.x(), c.y(), c.button()) || super.mouseReleased(c); }
-    @Override public boolean keyPressed(KeyInput in) { return onKey(in.getKeycode()) || super.keyPressed(in); }
-    @Override public boolean charTyped(CharInput in) { return (in.isValidChar() && onChar(in.codepoint())) || super.charTyped(in); }
+    @Override
+    public boolean mouseClicked(Click c, boolean doubled) {
+        return onClick(c.x(), c.y(), c.button()) || super.mouseClicked(c, doubled);
+    }
+
+    @Override
+    public boolean mouseDragged(Click c, double dx, double dy) {
+        return onDrag(c.x(), c.y(), c.button()) || super.mouseDragged(c, dx, dy);
+    }
+
+    @Override
+    public boolean mouseReleased(Click c) {
+        return onRelease(c.x(), c.y(), c.button()) || super.mouseReleased(c);
+    }
+
+    @Override
+    public boolean keyPressed(KeyInput in) {
+        // Prefer getKeycode() (AbstractInput); fall back to key() record accessor
+        int code;
+        try {
+            code = in.getKeycode();
+        } catch (Throwable t) {
+            code = in.key();
+        }
+        if (onKey(code)) return true;
+        return super.keyPressed(in);
+    }
+
+    @Override
+    public boolean charTyped(CharInput in) {
+        int cp;
+        try {
+            if (!in.isValidChar()) return super.charTyped(in);
+            cp = in.codepoint();
+        } catch (Throwable t) {
+            cp = in.codepoint();
+        }
+        if (onChar(cp)) return true;
+        return super.charTyped(in);
+    }
 }

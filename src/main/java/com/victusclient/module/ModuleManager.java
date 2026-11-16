@@ -48,79 +48,59 @@ public class ModuleManager {
         reg(new PackDisplayModule(), "Active resource packs.");
         reg(new DeathInfoModule(), "Where you died last.");
         reg(new BlockIndicatorModule(), "Block you are looking at.");
+        reg(new MinimapModule(), "Live minimap of the area around you.");
+        reg(new TpsModule(), "Approximate server tick rate.");
 
         // ---------- Visual ----------
         reg(new FullbrightModule(), "Full brightness, no more dark.");
         reg(new ZoomModule(), "Smooth zoom. Hold C, scroll to adjust.");
         reg(new FovChangerModule(), "FOV beyond the vanilla limit.");
         reg(new AutoPerspectiveModule(), "Third person on elytra & rides.");
+        reg(new CrosshairModule(), "Custom crosshair styles and colors.");
+        reg(new HitboxModule(), "Show entity hitboxes.");
+        reg(new FreelookModule(), "Hold Left Alt for third-person look.");
 
         // ---------- Movement ----------
         reg(new ToggleSprintModule(), "Sprint without holding the key.");
+        reg(new ElytraModule(), "Elytra durability HUD and low-durability warn.");
 
         // ---------- World ----------
         reg(new WorldInfoModule(), "Biome, light level and day count.");
         reg(new WeatherChangerModule(), "Client-side clear, rain, thunder.");
+        reg(new TimeChangerModule(), "Client-side time of day.");
+        reg(new TntTimerModule(), "Countdown above primed TNT.");
+        reg(new WaypointsModule(), "Save and list waypoints with distance.");
 
         // ---------- Utility ----------
         reg(new DropPreventionModule(), "Press drop twice to throw items.");
         reg(new ToastControlModule(), "Hide pop-up toasts.");
         reg(new SubtitlesModule(), "Always show sound subtitles.");
         reg(new AutohideHudModule(), "Hide HUD when you stand still.");
+        reg(new FpsBoostModule(), "One-toggle performance profile for higher FPS.");
+        reg(new EntityCullingModule(), "Limit entity render distance by type.");
+        reg(new ParticleLimiterModule(), "Cap particle count for smoother frames.");
+        reg(new InventoryOverhaulModule(), "Smoother inventory with world context.");
+        reg(new FriendsModule(), "Friends list, join alerts, LAN helpers.");
+        reg(new ReconnectModule(), "Auto-reconnect after disconnect.");
+        reg(new NickHiderModule(), "Hide or replace your name locally.");
+        reg(new ScoreboardModule(), "Hide or scale the scoreboard.");
+        reg(new ShulkerTooltipModule(), "Preview shulker box contents in tooltips.");
 
-        // ================= ROADMAP (need deeper render / game hooks) =================
-        Category V = Category.VISUAL, M = Category.MOVEMENT, W = Category.WORLD, U = Category.UTILITY;
+        // ================= Remaining (need heavy render/engine/external) =================
+        Category V = Category.VISUAL, U = Category.UTILITY;
         soon("Motion Blur", V, "Smooth motion trails while turning.");
         soon("Color Saturation", V, "Tune the world's color intensity.");
         soon("Custom Fog", V, "Change fog color and distance.");
         soon("Glint", V, "Recolor the enchantment glint.");
-        soon("Hitbox", V, "Show entity hitboxes.");
         soon("ViewModel", V, "Move and resize your held item.");
         soon("Block Overlay", V, "Custom block outline and fill.");
         soon("Item Physic", V, "Dropped items lie on the ground.");
         soon("Loot Beams", V, "Light beams above dropped loot.");
         soon("Nametags", V, "Better, customizable nametags.");
-        soon("Hearts", V, "Custom health hearts.");
-        soon("Armor Bar", V, "Custom armor bar.");
-        soon("Boss Bar", V, "Hide or restyle the boss bar.");
-        soon("Custom Crosshair", V, "Design your own crosshair.");
-        soon("Player Model", V, "Tweak your player model.");
-        soon("Camera", V, "Camera distance and smoothing.");
-        soon("Perspective", V, "Freelook around your player.");
-        soon("Snaplook", V, "Hold to glance around.");
-        soon("Dark Mode", V, "Dark theme for game screens.");
-        soon("Elytras", M, "Elytra flight helpers and HUD.");
-        soon("Horses", M, "Horse stats while riding.");
-        soon("Time Changer", W, "Set the time of day client-side.");
-        soon("TNT Timer", W, "Countdown above primed TNT.");
-        soon("Waypoints", W, "Mark and share locations.");
-        soon("Item Despawn", W, "Despawn timer for dropped items.");
-        soon("Light Level Overlay", W, "Show spawnable light levels.");
-        soon("Mob Overlay", W, "Highlight mob spawn spots.");
-        soon("Auto Text", U, "Send saved chat messages with a key.");
-        soon("Backups", U, "Automatic world backups.");
-        soon("Cull Logs", U, "Trim and clean old log files.");
-        soon("Custom Advancements Screen", U, "Redesigned advancements UI.");
+        soon("Snaplook", V, "Hold to glance around (camera offset).");
         soon("Custom Chat", U, "Restyle and filter chat.");
-        soon("Custom F3", U, "Cleaner debug screen.");
         soon("Discord", U, "Rich Presence for Discord.");
-        soon("Hypixel", U, "Hypixel-specific tools.");
-        soon("Keybind Search", U, "Search in the keybind screen.");
-        soon("Nick Hider", U, "Hide your name from chat and tab.");
-        soon("Pack Organizer", U, "Manage resource packs easily.");
-        soon("Reconnect", U, "Auto-reconnect after disconnect.");
-        soon("Scoreboard", U, "Move and restyle the scoreboard.");
-        soon("Screenshot", U, "Screenshot manager and quick share.");
-        soon("Shulker Tooltips", U, "Preview shulker contents.");
-        soon("Sound Filters", U, "Mute or boost specific sounds.");
         soon("Tablist", U, "Customizable player list.");
-        soon("Team Tracker", U, "Track your teammates.");
-        soon("Tier Tagger", U, "Show PvP tiers on nametags.");
-        soon("Title Tweaker", U, "Resize and move on-screen titles.");
-        soon("Tooltips", U, "Extra item tooltip details.");
-        soon("TPS", U, "Server tick rate display.");
-        soon("UHC Overlay", U, "Tools for UHC matches.");
-        soon("UI Scaling", U, "Fine-grained GUI scale.");
         soon("Voice", U, "Voice chat integration.");
 
         get("FPS").setEnabled(true);

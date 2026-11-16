@@ -21,7 +21,7 @@ import org.lwjgl.glfw.GLFW;
 
 public class VictusClient implements ClientModInitializer {
     public static final String ID = "victusclient";
-    public static final int ACCENT = 0xFF7C5CFF; // Victus violet
+    public static final int ACCENT = 0xFF8B6CFF; // Victus violet
     public static KeyBinding menuKey;
 
     public static String version() {

@@ -94,15 +94,23 @@ public class ClickGUIScreen extends VScreen {
 
     private List<Module> visible() {
         List<Module> out = new ArrayList<>();
-        boolean searching = !search.isEmpty();
+        String q = search == null ? "" : search.trim().toLowerCase();
+        boolean searching = !q.isEmpty();
         for (Module m : ModuleManager.all()) {
-            if (searching) { if (!m.name.toLowerCase().contains(search.toLowerCase())) continue; }
-            else if (tab == TAB_FAV) { if (!m.favorite) continue; }
-            else if (tab <= 6) { if (m.category != Category.values()[tab]) continue; }
-            else continue;
+            if (searching) {
+                String name = m.name == null ? "" : m.name.toLowerCase();
+                String desc = m.description == null ? "" : m.description.toLowerCase();
+                if (!name.contains(q) && !desc.contains(q)) continue;
+            } else if (tab == TAB_FAV) {
+                if (!m.favorite) continue;
+            } else if (tab <= 6) {
+                if (m.category != Category.values()[tab]) continue;
+            } else {
+                continue;
+            }
             out.add(m);
         }
-        out.sort(Comparator.comparing(m -> m.soon)); // working modules first
+        out.sort(Comparator.comparing((Module m) -> m.soon).thenComparing(m -> m.name));
         return out;
     }
 
@@ -455,8 +463,24 @@ public class ClickGUIScreen extends VScreen {
     @Override
     protected boolean onKey(int key) {
         if (key == GLFW.GLFW_KEY_RIGHT_SHIFT) { close(); return true; }
-        if (key == GLFW.GLFW_KEY_BACKSPACE && !search.isEmpty()) {
-            search = search.substring(0, search.length() - 1);
+        if (key == GLFW.GLFW_KEY_ESCAPE) {
+            if (!search.isEmpty()) {
+                search = "";
+                listScrollT = 0; listScroll = 0;
+                return true;
+            }
+            close();
+            return true;
+        }
+        if ((key == GLFW.GLFW_KEY_BACKSPACE || key == GLFW.GLFW_KEY_DELETE) && !search.isEmpty()) {
+            long win = client != null && client.getWindow() != null ? client.getWindow().getHandle() : 0;
+            boolean ctrl = win != 0 && (
+                    GLFW.glfwGetKey(win, GLFW.GLFW_KEY_LEFT_CONTROL) == GLFW.GLFW_PRESS
+                    || GLFW.glfwGetKey(win, GLFW.GLFW_KEY_RIGHT_CONTROL) == GLFW.GLFW_PRESS
+                    || GLFW.glfwGetKey(win, GLFW.GLFW_KEY_LEFT_SUPER) == GLFW.GLFW_PRESS
+                    || GLFW.glfwGetKey(win, GLFW.GLFW_KEY_RIGHT_SUPER) == GLFW.GLFW_PRESS);
+            if (ctrl) search = "";
+            else search = search.substring(0, search.length() - 1);
             listScrollT = 0; listScroll = 0;
             return true;
         }
@@ -465,7 +489,10 @@ public class ClickGUIScreen extends VScreen {
 
     @Override
     protected boolean onChar(int cp) {
-        if (cp >= 32 && cp != 127 && search.length() < 24) {
+        // Accept printable characters into the global search box
+        if (cp >= 32 && cp != 127 && search.length() < 32) {
+            // ignore control characters that sometimes slip through
+            if (Character.isISOControl(cp)) return false;
             search += new String(Character.toChars(cp));
             listScrollT = 0; listScroll = 0;
             return true;
