@@ -1,6 +1,7 @@
 package com.victusclient.module.modules;
 
 import com.victusclient.module.HudModule;
+import com.victusclient.module.Category;
 import com.victusclient.setting.Setting;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
